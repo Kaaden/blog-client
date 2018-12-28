@@ -211,9 +211,30 @@ a:hover {
 .cu {
     cursor: pointer;
 }
-code {
-    width:300px;
-    word-break: break-all;
+
+p code{
+    background-color: #fff5f5;
+    color: #ff502c;
+    font-size: .87em;
+    padding: .065em .4em;
+}
+pre{
+    position: relative;
+    line-height: 1.75;
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+    overflow: auto;
+}
+pre code {
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+    border-radius: 2px;
+       word-break: break-all;
+       display: block;
+       overflow: auto;
+       padding: 18px 15px 12px;
+       font-size: 11px;
+       color: #333;
+       background: #f8f8f8;
+       margin: 0;
 }
 code span{
     display: flex;
