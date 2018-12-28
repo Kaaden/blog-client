@@ -55,6 +55,7 @@ table {
 img,
 input,
 select {
+    width:100%;
     vertical-align: baseline;
 }
 
@@ -209,4 +210,12 @@ a:hover {
 
 .cu {
     cursor: pointer;
+}
+code {
+    width:300px;
+    word-break: break-all;
+}
+code span{
+    display: flex;
+    flex-wrap: wrap;
 }

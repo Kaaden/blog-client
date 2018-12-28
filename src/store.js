@@ -18,7 +18,7 @@ export default new Vuex.Store({
       state.bingImg = payload
       state.topLing.name = "Kaaden"
       state.topLing.tip = "一个不甘寂寞的码畜"
-      state.topLing.time=""
+      state.topLing.time = ""
     },
     SaveContent(state, payload) {
       const { total, list } = payload
@@ -26,10 +26,10 @@ export default new Vuex.Store({
       state.contentTotal = total
     },
     SaveDetail(state, payload) {
-      state.bingImg = payload.img
+      state.bingImg = payload.img ? payload.img : state.bingImg
       state.topLing.name = payload.title
       state.topLing.tip = payload.category
-      state.topLing.time=payload.time
+      state.topLing.time = payload.time
       state.detail = payload
     }
   },

@@ -1,9 +1,15 @@
+<style lang="less" scoped>
+.content {
+  width: 60%;
+  margin: 20px auto;
+ 
+}
+</style>
+
 <template>
   <div>
-    <Header>
-        
-    </Header>
-    <div>{{$store.state.detail.content}}||"1"</div>
+    <Header></Header>
+    <div id="info" class="content"></div>
   </div>
 </template>
 
@@ -12,12 +18,15 @@ import Header from "../components/Head";
 export default {
   name: "home",
   components: {
-    Header,
+    Header
   },
-  mounted(){
-      let id=this.$route.query.id
-      this.$store.dispatch("getDetail",id)
-    
+  async mounted() {
+    let id = this.$route.query.id;
+    await this.$store.dispatch("getDetail", id);
+    this.$store.state.detail.content = this.$store.state.detail.content.replace( /↵/g, "");
+    document.getElementById(
+      "info"
+    ).innerHTML = this.$store.state.detail.content;
   }
 };
 </script>
