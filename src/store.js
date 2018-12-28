@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import { getBing, getContent, getDetail } from "./service";
+import { getBing, getContent, getDetail, getTags } from "./service";
 export default new Vuex.Store({
   state: {
     topLing: {
@@ -11,13 +11,14 @@ export default new Vuex.Store({
     bingImg: "",
     contentLst: [],
     contentTotal: 0,
-    detail: ""
+    detail: "",
+    Tags: []
   },
   mutations: {
     SaveBing(state, payload) {
-      state.bingImg = payload
-      state.topLing.name = "Kaaden"
-      state.topLing.tip = "一个不甘寂寞的码畜"
+      state.bingImg = payload.url
+      state.topLing.name = payload.name
+      state.topLing.tip = payload.tip
       state.topLing.time = ""
     },
     SaveContent(state, payload) {
@@ -31,13 +32,23 @@ export default new Vuex.Store({
       state.topLing.tip = payload.category
       state.topLing.time = payload.time
       state.detail = payload
+    },
+    SaveTags(state, payload) {
+      state.Tags = payload
     }
   },
   actions: {
     //获取每日一图
     async getBing({ commit }, payload) {
-      let { data } = await getBing()
-      commit("SaveBing", data.url)
+      let url
+      if (!payload.url) {
+        let { data } = await getBing()
+        url = data.url
+      } else {
+        url = payload.url
+      }
+
+      commit("SaveBing", { url, ...payload })
     },
     // 获取列表
     async getContent({ commit }, payload) {
@@ -52,7 +63,12 @@ export default new Vuex.Store({
       if (data.isok) {
         commit("SaveDetail", data.data)
       }
-      console.log(data)
+    },
+    async getTags({ commit }, ) {
+      let { data } = await getTags()
+      if (data.isok) {
+        commit("SaveTags", data.data)
+      }
     }
 
   }

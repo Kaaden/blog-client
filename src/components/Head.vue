@@ -29,14 +29,15 @@
     top: 0.3rem;
     right: 0.3rem;
     z-index: 3;
-    li a {
+    li {
       display: inline-block;
       color: #fff;
       width: 1rem;
       font-weight: 800;
       font-size: 0.16rem;
+      cursor: pointer;
     }
-    li a:hover {
+    li:hover {
       color: #777;
     }
   }
@@ -53,7 +54,7 @@
       font-size: 0.55rem;
       margin-bottom: 0.1rem;
     }
-    .pad{
+    .pad {
       padding-left: 0.3rem;
     }
     .header-time {
@@ -65,30 +66,24 @@
       margin-top: 0.3rem;
     }
   }
+ 
 }
 </style>
 
 
 <template>
-  <div class="header f fj" :style="{'background-image':`url(${$store.state.bingImg})`}">
+  <div class="header f fj" :style="{'background-image':`url(${$store.state.bingImg})`}" v-cloak>
     <div class="header-bg"></div>
     <a class="header-title" href="/">Kaaden Blog</a>
     <ul class="header-nav">
-      <li>
-        <a>HOME</a>
-      </li>
-      <li>
-        <a>ABOUT</a>
-      </li>
-      <li>
-        <a>TAGS</a>
-      </li>
+      <li v-for="item in header" @click="goNav(item.id)" v-cloak>{{item.name}}</li>
     </ul>
     <div :class="$store.state.topLing.time===''?'fc':''" class="header-center f fv">
-      <strong class="line line1" :class="$store.state.topLing.time===''?'':'pad'">{{$store.state.topLing.name}}</strong>
-      <span style="font-weight: 400;font-size:0.3rem">{{$store.state.topLing.tip}}</span>
-      <span class="header-time">{{$store.state.topLing.time}}</span>
+      <strong :class="$store.state.topLing.time===''?'':'pad'" v-cloak>{{$store.state.topLing.name}}</strong>
+      <span style="font-weight: 400;font-size:0.3rem" v-cloak>{{$store.state.topLing.tip}}</span>
+      <span class="header-time" v-cloak>{{$store.state.topLing.time}}</span>
     </div>
+  
   </div>
 </template>
 
@@ -96,7 +91,29 @@
 export default {
   name: "Head",
   data() {
-    return {};
+    return {
+      header: [
+        { id: 1, name: "HOME" },
+        { id: 2, name: "ABOUT" },
+        { id: 3, name: "TAGS" }
+      ]
+    };
+  },
+  methods: {
+    goNav(type) {
+      let url = "";
+      switch (type) {
+        case 1:
+          url = "/";
+          break;
+        case 2:
+          break;
+        case 3:
+          url = "/Tags";
+          break;
+      }
+      this.tools.goNewPage(url, this);
+    }
   }
 };
 </script>

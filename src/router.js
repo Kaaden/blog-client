@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Detail from "./views/Detail.vue"
+import Tags from "./views/Tags.vue"
 Vue.use(Router)
 
 export default new Router({
@@ -17,6 +18,11 @@ export default new Router({
       path: '/Detail',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '/Tags',
+      name: 'Tags',
+      component: Tags
     },
     {
       path: '/about',

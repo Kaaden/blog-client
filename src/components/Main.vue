@@ -1,74 +1,69 @@
 <style lang="less" scoped>
-.container {
-  width: 60%;
-  height: 500px;
-  margin: 0.2rem auto;
-  .row {
-    width: 66.66666667%;
-    li {
-      padding-bottom: 0.2rem;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-      margin-bottom: 0.2rem;
-    }
-    li:hover {
-      color: #0085a1;
-    }
-    li h2 {
-      font-size: 0.26rem;
-      line-height: 1.3;
-      margin-bottom: 0.1rem;
-    }
-    li p {
-      font-style: italic;
-      color: #a3a3a3;
-      font-size: 0.12rem;
-      margin-bottom: 0.1rem;
-    }
-    li p:hover {
-      color: #0085a1;
-    }
-    li span {
-      font-family: Lora, "Times New Roman", serif;
-      color: gray;
-      font-size: 0.18rem;
-      font-style: italic;
-    }
+.row {
+  width: 66.66666667%;
+  li {
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    margin-bottom: 0.2rem;
   }
-  .right {
-    margin-left: 5%;
-    .tags {
-      padding: 0.1rem 0.2rem;
-      border-top: 1px solid #eee;
-      .tags-i {
-        margin-top: 0.2rem;
-        li {
-          border: 1px solid #bfbfbf;
-          border-radius: 999em;
-          padding: 0 0.1rem;
-          line-height: 0.24rem;
-          font-size: 0.12rem;
-          text-decoration: none;
-          margin-right: 0.1rem;
-          color: #bfbfbf;
-          margin-bottom: 6px;
-        }
-        li:hover {
-          border: 1px solid #0085a1;
-          color: #0085a1;
-        }
-      }
-      .aboutMe {
-        width: 2.5rem;
-        margin-top: 0.2rem;
-        border-radius: 0.05rem;
-      }
-      .desc {
+  li:hover {
+    color: #0085a1;
+  }
+  li h2 {
+    font-size: 0.26rem;
+    line-height: 1.3;
+    margin-bottom: 0.1rem;
+  }
+  li p {
+    font-style: italic;
+    color: #a3a3a3;
+    font-size: 0.12rem;
+    margin-bottom: 0.1rem;
+  }
+  li p:hover {
+    color: #0085a1;
+  }
+  li span {
+    font-family: Lora, "Times New Roman", serif;
+    color: gray;
+    font-size: 0.18rem;
+    font-style: italic;
+  }
+}
+.right {
+  margin-left: 5%;
+  .tags {
+    padding: 0.1rem 0.2rem;
+    border-top: 1px solid #eee;
+    .tags-i {
+      margin-top: 0.2rem;
+      li {
+        border: 1px solid #bfbfbf;
+        border-radius: 999em;
+        padding: 0 0.1rem;
+        line-height: 0.24rem;
+        font-size: 0.12rem;
+        text-decoration: none;
+        margin-right: 0.1rem;
         color: #bfbfbf;
-        font-size: 0.14rem;
-        margin-top: 0.2rem;
-        padding-right: 0.2rem;
+        margin-bottom: 6px;
       }
+      li:hover {
+        border: 1px solid #0085a1;
+        color: #0085a1;
+      }
+    }
+    .aboutMe {
+      width: 2.5rem;
+      margin-top: 0.2rem;
+      border-radius: 0.05rem;
+    }
+    .desc {
+      color: #bfbfbf;
+      font-size: 0.14rem;
+      margin-top: 0.2rem;
+      padding-right: 0.2rem;
     }
   }
 }
@@ -80,9 +75,7 @@
     <ul class="row">
       <li v-for="item in $store.state.contentLst" @click="goDetail(item)">
         <h2>{{item.title}}</h2>
-        <p
-          class="line line3"
-        >{{item.content}}</p>
+        <p class="line line3">{{item.content}}</p>
         <span>{{item.time}}</span>
       </li>
     </ul>
@@ -93,13 +86,7 @@
           <a>CLASSIFICATION</a>
         </h4>
         <ul class="tags-i f fw">
-          <li>前端开发</li>
-          <li>javaScript</li>
-          <li>nodeJs</li>
-          <li>umijs</li>
-          <li>react</li>
-          <li>vue</li>
-          <li>egg</li>
+          <li v-for="item in $store.state.Tags">{{item}}</li>
         </ul>
       </div>
       <div class="tags f fv">
@@ -125,15 +112,14 @@ export default {
       }
     };
   },
-  methods:{
-    goDetail(item){
-      console.log(item)
-      this.tools.goNewPage(`/Detail?id=${item.id}`,this)
-      console.log(this.tools)
+  methods: {
+    goDetail(item) {
+      this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
   },
   mounted() {
     this.$store.dispatch("getContent", this.vm);
+    this.$store.dispatch("getTags");
   }
 };
 </script>

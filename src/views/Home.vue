@@ -15,7 +15,10 @@ export default {
     Main
   },
   mounted() {
-    this.$store.dispatch("getBing");
+    this.$store.dispatch("getBing", {
+      name: "Kaaden",
+      tip: "一个不甘寂寞的码畜"
+    });
   }
 };
 </script>

@@ -15,6 +15,7 @@ const addr = {
     bing: host + "/getBing",
     content:host+"/getContent",
     detail:host+"/getDetail",
+    getTags:host+"/getTags",
 };
 export function getBing(body) {
     return request({
@@ -34,6 +35,13 @@ export function getDetail(body) {
     return request({
         method: "post",
         url: addr.detail,
+        data: qs.stringify(body)
+    });
+}
+export function getTags(body) {
+    return request({
+        method: "post",
+        url: addr.getTags,
         data: qs.stringify(body)
     });
 }
