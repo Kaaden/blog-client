@@ -13,9 +13,10 @@ async function request(options) {
 const host = "http://127.0.0.1:7001";
 const addr = {
     bing: host + "/getBing",
-    content:host+"/getContent",
-    detail:host+"/getDetail",
-    getTags:host+"/getTags",
+    content: host + "/getContent",
+    detail: host + "/getDetail",
+    getTags: host + "/getTags",
+    getUser: host + "/getUser"
 };
 export function getBing(body) {
     return request({
@@ -42,6 +43,13 @@ export function getTags(body) {
     return request({
         method: "post",
         url: addr.getTags,
+        data: qs.stringify(body)
+    });
+}
+export function getUser(body) {
+    return request({
+        method: "post",
+        url: addr.getUser,
         data: qs.stringify(body)
     });
 }

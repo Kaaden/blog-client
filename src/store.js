@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import { getBing, getContent, getDetail, getTags } from "./service";
+import { getBing, getContent, getDetail, getTags, getUser } from "./service";
 export default new Vuex.Store({
   state: {
     topLing: {
@@ -15,6 +15,7 @@ export default new Vuex.Store({
     Tags: [],
     TagSel: "",
     TagsContent: {},
+    user: ""
   },
   mutations: {
     SaveBing(state, payload) {
@@ -59,6 +60,9 @@ export default new Vuex.Store({
       } else {
         state.TagsContent = {};
       }
+    },
+    SaveUser(state, payload) {
+      state.user = payload
     }
   },
   actions: {
@@ -92,6 +96,12 @@ export default new Vuex.Store({
       let { data } = await getTags()
       if (data.isok) {
         commit("SaveTags", data.data)
+      }
+    },
+    async getUser({ commit }) {
+      let { data } = await getUser()
+      if (data.isok) {
+        commit("SaveUser", data.data)
       }
     }
 

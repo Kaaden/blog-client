@@ -12,7 +12,7 @@ export default {
   name: "home",
   components: {
     Header,
-    Main
+    Main,
   },
   mounted() {
     this.$store.dispatch("getBing", {

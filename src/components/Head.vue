@@ -107,6 +107,7 @@ export default {
           url = "/";
           break;
         case 2:
+         url = "/About";
           break;
         case 3:
           url = "/Tags";

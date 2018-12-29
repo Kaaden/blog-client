@@ -89,7 +89,6 @@ export default {
         status: 1,
         category: ""
       }
-      // td: {}
     };
   },
   methods: {
@@ -102,31 +101,9 @@ export default {
       };
       await this.$store.dispatch("getContent", vm);
       this.$store.commit("ChangeTagSel", index);
-      // this.td = this.getData();
     },
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
-    },
-    getData() {
-      let vm = [];
-      let data = this.$store.state.contentLst;
-      if (data.length) {
-        data.map(item => {
-          if (vm.length == 0) {
-            vm.push({ category: item.category, list: [item] });
-          } else {
-            let index = vm.findIndex(it => it.category === item.category);
-            if (index === -1) {
-              vm.push({ category: item.category, list: [item] });
-            } else {
-              vm[index].list.push(item);
-            }
-          }
-        });
-        return vm;
-      } else {
-        return {};
-      }
     }
   },
   async mounted() {
@@ -135,7 +112,9 @@ export default {
       tip: "Find the right one for you",
       url: "https://fairyly.github.io/myblog/img/about-bg.jpg"
     });
-    this.$store.dispatch("getTags");
+    if (this.$store.state.Tags.length === 0) {
+      this.$store.dispatch("getTags");
+    }
     if (this.$store.state.TagSel === "") {
       await this.$store.dispatch("getContent", this.vm);
       this.$store.commit("ChangeTagSel", "");
