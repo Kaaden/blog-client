@@ -40,6 +40,10 @@
     color: #0085a1;
   }
 }
+.selLi {
+  background: #0085a1 !important;
+  color: #fff !important;
+}
 </style>
 
 <template>
@@ -47,11 +51,16 @@
     <Header></Header>
     <div class="container">
       <ul class="tag-ie f fw">
-        <li v-for="item in $store.state.Tags">{{item}}</li>
+        <li :class="$store.state.TagSel===''?'selLi':''" @click="selChange('','')">全部</li>
+        <li
+          v-for="(item,index) in $store.state.Tags"
+          @click="selChange(index,item)"
+          :class="$store.state.TagSel===index?'selLi':''"
+        >{{item}}</li>
       </ul>
 
       <ul>
-        <li v-for="item in td" >
+        <li v-for="item in $store.state.TagsContent">
           <div class="title">
             <i class="el-icon-info"></i>
             <span>{{item.category}}</span>
@@ -77,40 +86,59 @@ export default {
       vm: {
         pageindex: 1,
         pageSize: 10,
-        status: 1
-      },
-      td: {}
+        status: 1,
+        category: ""
+      }
+      // td: {}
     };
   },
   methods: {
+    async selChange(index, category) {
+      let vm = {
+        pageindex: 1,
+        pageSize: 10,
+        status: 1,
+        category
+      };
+      await this.$store.dispatch("getContent", vm);
+      this.$store.commit("ChangeTagSel", index);
+      // this.td = this.getData();
+    },
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
+    },
+    getData() {
+      let vm = [];
+      let data = this.$store.state.contentLst;
+      if (data.length) {
+        data.map(item => {
+          if (vm.length == 0) {
+            vm.push({ category: item.category, list: [item] });
+          } else {
+            let index = vm.findIndex(it => it.category === item.category);
+            if (index === -1) {
+              vm.push({ category: item.category, list: [item] });
+            } else {
+              vm[index].list.push(item);
+            }
+          }
+        });
+        return vm;
+      } else {
+        return {};
+      }
     }
   },
   async mounted() {
     this.$store.dispatch("getBing", {
       name: "TAGS",
       tip: "Find the right one for you",
-      url:"https://fairyly.github.io/myblog/img/about-bg.jpg"
+      url: "https://fairyly.github.io/myblog/img/about-bg.jpg"
     });
     this.$store.dispatch("getTags");
-    await this.$store.dispatch("getContent", this.vm);
-    let vm = [];
-    let data = this.$store.state.contentLst;
-    if (data.length) {
-      data.map(item => {
-        if (vm.length == 0) {
-          vm.push({ category: item.category, list: [item] });
-        } else {
-          let index = vm.findIndex(it => it.category === item.category);
-          if (index === -1) {
-            vm.push({ category: item.category, list: [item] });
-          } else {
-            vm[index].list.push(item);
-          }
-        }
-      });
-      this.td = vm;
+    if (this.$store.state.TagSel === "") {
+      await this.$store.dispatch("getContent", this.vm);
+      this.$store.commit("ChangeTagSel", "");
     }
   }
 };

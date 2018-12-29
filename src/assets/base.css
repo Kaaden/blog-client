@@ -243,3 +243,14 @@ code span{
     width: 60%;
   margin: 0.2rem auto;
 }
+
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+    background-color: rgba(0, 0, 0, 0.15);
+}

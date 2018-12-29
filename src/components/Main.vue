@@ -82,11 +82,11 @@
 
     <div class="right f1">
       <div class="tags">
-        <h4>
+        <h4 @click="changeTag('','')">
           <a>CLASSIFICATION</a>
         </h4>
         <ul class="tags-i f fw">
-          <li v-for="item in $store.state.Tags">{{item}}</li>
+          <li v-for="(item,index) in $store.state.Tags" @click="changeTag(index,item)">{{item}}</li>
         </ul>
       </div>
       <div class="tags f fv">
@@ -113,6 +113,17 @@ export default {
     };
   },
   methods: {
+    async changeTag(index, category) {
+      let payload = {
+        pageindex: 1,
+        pageSize: 10,
+        status: 1,
+        category
+      };
+      await this.$store.dispatch("getContent", payload);
+      this.$store.commit("ChangeTagSel", index);
+      this.tools.goNewPage(`/Tags`, this);
+    },
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }

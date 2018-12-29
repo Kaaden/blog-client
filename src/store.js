@@ -12,7 +12,9 @@ export default new Vuex.Store({
     contentLst: [],
     contentTotal: 0,
     detail: "",
-    Tags: []
+    Tags: [],
+    TagSel: "",
+    TagsContent: {},
   },
   mutations: {
     SaveBing(state, payload) {
@@ -35,6 +37,28 @@ export default new Vuex.Store({
     },
     SaveTags(state, payload) {
       state.Tags = payload
+    },
+    ChangeTagSel(state, payload) {
+      state.TagSel = payload
+      let vm = [];
+      let data = state.contentLst;
+      if (data.length) {
+        data.map(item => {
+          if (vm.length == 0) {
+            vm.push({ category: item.category, list: [item] });
+          } else {
+            let index = vm.findIndex(it => it.category === item.category);
+            if (index === -1) {
+              vm.push({ category: item.category, list: [item] });
+            } else {
+              vm[index].list.push(item);
+            }
+          }
+        });
+        state.TagsContent = vm;
+      } else {
+        state.TagsContent = {};
+      }
     }
   },
   actions: {
