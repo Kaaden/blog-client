@@ -15,9 +15,17 @@ export default new Vuex.Store({
     Tags: [],
     TagSel: "",
     TagsContent: {},
-    user: ""
+    user: "",
+    loading: false,
+    scrollTop:false,
   },
   mutations: {
+    ChangeScroll(state, payload) {
+      state.scrollTop = payload
+    },
+    ChangeLoading(state, payload) {
+      state.loading = payload
+    },
     SaveBing(state, payload) {
       state.bingImg = payload.url
       state.topLing.name = payload.name
@@ -91,6 +99,7 @@ export default new Vuex.Store({
       if (data.isok) {
         commit("SaveDetail", data.data)
       }
+      commit("ChangeLoading", false);
     },
     async getTags({ commit }, ) {
       let { data } = await getTags()

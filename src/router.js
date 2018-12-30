@@ -18,7 +18,12 @@ export default new Router({
     {
       path: '/Detail',
       name: 'Detail',
-      component: Detail
+      component: Detail,
+      template: `
+      <transition name="slide">
+        <div class="foo">...</div>
+      </transition>
+    `
     },
     {
       path: '/Tags',

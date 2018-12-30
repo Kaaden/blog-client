@@ -8,18 +8,22 @@
 <template>
   <div>
     <Header></Header>
-    <div id="info" class="content"></div>
+    <div id="info" class="content" v-loading="$store.state.loading"></div>
+     <Up></Up>
   </div>
 </template>
 
 <script>
 import Header from "../components/Head";
+import Up from "../components/Up"
 export default {
   name: "home",
   components: {
-    Header
+    Header,
+    Up
   },
   async mounted() {
+    this.$store.commit("ChangeLoading", true);
     let id = this.$route.query.id;
     await this.$store.dispatch("getDetail", id);
     this.$store.state.detail.content = this.$store.state.detail.content.replace(

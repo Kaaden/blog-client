@@ -21,7 +21,8 @@ const tools = {
         var fontSize = deviceWidth / 19.2;
         $("html").css("fontSize", fontSize);
         console.log(fontSize);
-    }
+    },
+    
 };
 
 export { tools };

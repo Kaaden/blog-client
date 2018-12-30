@@ -49,7 +49,7 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container">
+    <div class="container" v-loading="$store.state.loading">
       <ul class="tag-ie f fw">
         <li :class="$store.state.TagSel===''?'selLi':''" @click="selChange('','')">全部</li>
         <li
@@ -71,15 +71,18 @@
         </li>
       </ul>
     </div>
+    <Up></Up>
   </div>
 </template>
 
 <script>
 import Header from "../components/Head";
+import Up from "../components/Up"
 export default {
   name: "Tags",
   components: {
-    Header
+    Header,
+    Up
   },
   data() {
     return {
@@ -99,18 +102,21 @@ export default {
         status: 1,
         category
       };
+      this.$store.commit("ChangeLoading", true);
       await this.$store.dispatch("getContent", vm);
-      this.$store.commit("ChangeTagSel", index);
+      await this.$store.commit("ChangeTagSel", index);
+      this.$store.commit("ChangeLoading", false);
     },
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
   },
   async mounted() {
+    this.$store.commit("ChangeLoading", true);
     this.$store.dispatch("getBing", {
       name: "TAGS",
       tip: "Find the right one for you",
-      url: "https://fairyly.github.io/myblog/img/about-bg.jpg"
+      url: "http://kaaden.orrzt.com/public/about-bg.jpg"
     });
     if (this.$store.state.Tags.length === 0) {
       this.$store.dispatch("getTags");
@@ -119,6 +125,7 @@ export default {
       await this.$store.dispatch("getContent", this.vm);
       this.$store.commit("ChangeTagSel", "");
     }
+    this.$store.commit("ChangeLoading", false);
   }
 };
 </script>

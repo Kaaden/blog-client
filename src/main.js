@@ -12,6 +12,7 @@ Vue.config.productionTip = false;
 $(window).resize(function () {
   tools.fontSize();
 });
+
 Vue.use(ElementUI);
 Vue.prototype.tools = tools; //挂载全局方法调用
 new Vue({
@@ -20,5 +21,5 @@ new Vue({
   render: h => h(App),
   mounted() {
     tools.fontSize();
-  }
+  },
 }).$mount('#app')

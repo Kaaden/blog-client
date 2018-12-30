@@ -27,22 +27,25 @@
     <Header></Header>
     <div class="container f">
       <div class="row">
-        <div class="desc">{{$store.state.user.desc}}</div>
-        <div class="content">{{$store.state.user.content}}</div>
+        <div class="desc rv">{{$store.state.user.desc}}</div>
+        <div class="content rv">{{$store.state.user.content}}</div>
       </div>
       <UserInfo></UserInfo>
     </div>
+    <Up></Up>
   </div>
 </template>
 
 <script>
 import Header from "../components/Head";
 import UserInfo from "../components/userInfo";
+import Up from "../components/Up"
 export default {
   name: "Tags",
   components: {
     Header,
-    UserInfo
+    UserInfo,
+    Up
   },
   data() {
     return {};
@@ -52,7 +55,7 @@ export default {
     this.$store.dispatch("getBing", {
       name: "About me",
       tip: "show me something",
-      url: "https://pic4.zhimg.com/80/v2-bf8626365bc43994346ef23a908d2e03_r.jpg"
+      url: "http://kaaden.orrzt.com/public/v2-bf8626365bc43994346ef23a908d2e03_r.jpg"
     });
     if (this.$store.state.user === "") {
       this.$store.dispatch("getUser");

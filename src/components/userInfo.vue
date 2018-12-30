@@ -39,10 +39,10 @@
 
 
 <template>
-  <div class="right f1">
+  <div class="right f1 rv">
     <div class="tags">
       <h4 @click="changeTag('','')">
-        <a>CLASSIFICATION</a>
+        <a cla>CLASSIFICATION</a>
       </h4>
       <ul class="tags-i f fw">
         <li v-for="(item,index) in $store.state.Tags" @click="changeTag(index,item)">{{item}}</li>
