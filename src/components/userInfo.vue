@@ -33,6 +33,10 @@
       margin-top: 0.2rem;
       padding-right: 0.2rem;
     }
+    .github {
+      margin-top: 0.3rem;
+      cursor: pointer;
+    }
   }
 }
 </style>
@@ -49,11 +53,16 @@
       </ul>
     </div>
     <div class="tags f fv">
-      <h4>
+      <h4 @click="goAbout">
         <a>ABOUT ME</a>
       </h4>
       <img class="aboutMe" :src="$store.state.user.logo">
       <span class="desc">{{$store.state.user.desc}}</span>
+      <div class="github">
+        <a target="_blank" href="https://github.com/Kaaden"> 
+          <img style="width:0.4rem;height:0.4rem" src="http://kaaden.orrzt.com/public/git.png">
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -75,6 +84,9 @@ export default {
       await this.$store.dispatch("getContent", payload);
       this.$store.commit("ChangeTagSel", index);
       this.tools.goNewPage(`/Tags`, this);
+    },
+    goAbout() {
+      this.tools.goNewPage(`/About`, this);
     }
   },
   mounted() {

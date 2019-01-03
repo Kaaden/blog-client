@@ -17,7 +17,7 @@ export default new Vuex.Store({
     TagsContent: {},
     user: "",
     loading: false,
-    scrollTop:false,
+    scrollTop: false,
   },
   mutations: {
     ChangeScroll(state, payload) {
@@ -34,6 +34,12 @@ export default new Vuex.Store({
     },
     SaveContent(state, payload) {
       const { total, list } = payload
+      if (list.length) {
+        list.map(item => {
+          item.content = item.content.replace(/<[^>]+>/g, "")//去除所有html标签
+          item.content = item.content.replace(/↵/g, "");
+        })
+      }
       state.contentLst = list
       state.contentTotal = total
     },
