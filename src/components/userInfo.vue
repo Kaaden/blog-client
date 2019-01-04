@@ -43,18 +43,18 @@
 
 
 <template>
-  <div class="right f1 rv">
+  <div class="right f1">
     <div class="tags">
       <h4 @click="changeTag('','')">
-        <a cla>CLASSIFICATION</a>
+        <a class="rv">CLASSIFICATION</a>
       </h4>
-      <ul class="tags-i f fw">
+      <ul class="tags-i f fw rv">
         <li v-for="(item,index) in $store.state.Tags" @click="changeTag(index,item)">{{item}}</li>
       </ul>
     </div>
     <div class="tags f fv">
       <h4 @click="goAbout">
-        <a>ABOUT ME</a>
+        <a class="rv">ABOUT ME</a>
       </h4>
       <img class="aboutMe" :src="$store.state.user.logo">
       <span class="desc">{{$store.state.user.desc}}</span>
