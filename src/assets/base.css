@@ -210,36 +210,9 @@ textarea {
     cursor: pointer;
 }
 
-p code{
-    background-color: #fff5f5;
-    color: #ff502c;
-    font-size: .87em;
-    padding: .065em .4em;
-}
-pre{
-    position: relative;
-    line-height: 1.75;
-    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
-    overflow: auto;
-}
-pre code {
-    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
-    border-radius: 2px;
-       word-break: break-all;
-       display: block;
-       overflow: auto;
-       padding: 18px 15px 12px;
-       font-size: 11px;
-       color: #333;
-       background: #f8f8f8;
-       margin: 0;
-}
-code span{
-    display: flex;
-    flex-wrap: wrap;
-}
+
 .container{
-    width: 60%;
+  width: 60%;
   margin: 0.2rem auto;
 }
 
@@ -260,4 +233,33 @@ blockquote{
     border-left: 5px solid #ccc;
     color: #666;
     font-style: italic;
+}
+
+p code{
+    background-color: #fff5f5;
+    color: #ff502c;
+    font-size: .87em;
+    padding: .065em .4em;
+}
+pre{
+    max-width: 100%;
+    max-height: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    overflow: auto;
+    background-color: #f1f2f3;
+    border-radius: 3px;
+    color: #666;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+
+}
+pre code {
+    line-height: normal;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 1em;
 }
