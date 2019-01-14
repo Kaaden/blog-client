@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 const tools = {
     sessionSet(name, data) {
         window.sessionStorage.setItem(name, data);
@@ -14,15 +12,15 @@ const tools = {
         target.$route.back(-1);
     },
     fontSize() {
-        var deviceWidth = $(document).width();
+        let deviceWidth = document.documentElement.offsetWidth;
         if (deviceWidth > 1920) {
             deviceWidth = 1920;
         }
-        var fontSize = deviceWidth / 19.2;
-        $("html").css("fontSize", fontSize);
-        console.log(fontSize);
+        let fontsize = deviceWidth / 19.2;
+        document.documentElement.style = `font-size:${fontsize}px`
+        console.log(fontsize);
     },
-    
+
 };
 
 export { tools };

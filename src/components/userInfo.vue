@@ -16,6 +16,7 @@
         margin-right: 0.1rem;
         color: #bfbfbf;
         margin-bottom: 6px;
+        cursor: pointer;
       }
       li:hover {
         border: 1px solid #0085a1;

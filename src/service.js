@@ -18,35 +18,35 @@ const addr = {
     getTags: host + "/getTags",
     getUser: host + "/getUser"
 };
-export function getBing(body) {
+export const getBing = (body) => {
     return request({
         method: "post",
         url: addr.bing,
         data: qs.stringify(body)
     });
 }
-export function getContent(body) {
+export const getContent = (body) => {
     return request({
         method: "post",
         url: addr.content,
         data: qs.stringify(body)
     });
 }
-export function getDetail(body) {
+export const getDetail = (body) => {
     return request({
         method: "post",
         url: addr.detail,
         data: qs.stringify(body)
     });
 }
-export function getTags(body) {
+export const getTags = (body) => {
     return request({
         method: "post",
         url: addr.getTags,
         data: qs.stringify(body)
     });
 }
-export function getUser(body) {
+export const getUser = (body) => {
     return request({
         method: "post",
         url: addr.getUser,

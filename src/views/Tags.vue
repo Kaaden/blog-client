@@ -77,7 +77,7 @@
 
 <script>
 import Header from "../components/Head";
-import Up from "../components/Up"
+import Up from "../components/Up";
 export default {
   name: "Tags",
   components: {
@@ -88,7 +88,7 @@ export default {
     return {
       vm: {
         pageindex: 1,
-        pageSize: 10,
+        pageSize: 10000,
         status: 1,
         category: ""
       }
@@ -96,36 +96,38 @@ export default {
   },
   methods: {
     async selChange(index, category) {
+      const { $store } = this;
       let vm = {
         pageindex: 1,
-        pageSize: 10,
+        pageSize: 10000,
         status: 1,
         category
       };
-      this.$store.commit("ChangeLoading", true);
-      await this.$store.dispatch("getContent", vm);
-      await this.$store.commit("ChangeTagSel", index);
-      this.$store.commit("ChangeLoading", false);
+      $store.commit("ChangeLoading", true);
+      await $store.dispatch("getContent", vm);
+      await $store.commit("ChangeTagSel", index);
+      $store.commit("ChangeLoading", false);
     },
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
   },
   async mounted() {
-    this.$store.commit("ChangeLoading", true);
-    this.$store.dispatch("getBing", {
+    const { $store } = this;
+    $store.commit("ChangeLoading", true);
+    $store.dispatch("getBing", {
       name: "TAGS",
       tip: "Find the right one for you",
       url: "http://kaaden.orrzt.com/public/about-bg.jpg"
     });
-    if (this.$store.state.Tags.length === 0) {
-      this.$store.dispatch("getTags");
+    if ($store.state.Tags.length === 0) {
+      $store.dispatch("getTags");
     }
-    if (this.$store.state.TagSel === "") {
-      await this.$store.dispatch("getContent", this.vm);
-      this.$store.commit("ChangeTagSel", "");
+    if ($store.state.TagSel === "") {
+      await $store.dispatch("getContent", this.vm);
+      $store.commit("ChangeTagSel", "");
     }
-    this.$store.commit("ChangeLoading", false);
+    $store.commit("ChangeLoading", false);
   }
 };
 </script>

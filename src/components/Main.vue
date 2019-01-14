@@ -35,13 +35,20 @@
 
 
 <template>
-  <div class="container f" >
+  <div class="container f">
     <ul class="row" v-loading="$store.state.loading">
       <li v-for="item in $store.state.contentLst" @click="goDetail(item)" v-cloak>
         <h2 class="rv">{{item.title}}</h2>
         <p class="line line3 rv">{{item.content}}</p>
         <span class="rv">{{item.time}}</span>
       </li>
+      <el-pagination
+        layout="prev, pager, next"
+        :page-size="10"
+        :current-page="vm.pageindex"
+        @current-change="changePage"
+        :total="$store.state.contentTotal"
+      />
     </ul>
     <UserInfo></UserInfo>
   </div>
@@ -67,12 +74,21 @@ export default {
   methods: {
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
+    },
+    async changePage(e) {
+      let { $store, vm } = this;
+      vm.pageindex = e;
+      $store.commit("ChangeLoading", true);
+      await $store.dispatch("getContent", vm);
+      $store.commit("ChangeLoading", false);
+      this.vm.pageindex = e;
     }
   },
   async mounted() {
-    this.$store.commit("ChangeLoading", true);
-    await this.$store.dispatch("getContent", this.vm);
-    this.$store.commit("ChangeLoading", false);
+    const { $store, vm } = this;
+    $store.commit("ChangeLoading", true);
+    await $store.dispatch("getContent", vm);
+    $store.commit("ChangeLoading", false);
   }
 };
 </script>

@@ -27,9 +27,10 @@ export default new Vuex.Store({
       state.loading = payload
     },
     SaveBing(state, payload) {
-      state.bingImg = payload.url
-      state.topLing.name = payload.name
-      state.topLing.tip = payload.tip
+      const { url, name, tip } = payload
+      state.bingImg = url
+      state.topLing.name = name
+      state.topLing.tip = tip
       state.topLing.time = ""
     },
     SaveContent(state, payload) {
