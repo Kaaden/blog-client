@@ -57,7 +57,7 @@
         <a class="rv">ABOUT ME</a>
       </h4>
       <img class="aboutMe" :src="$store.state.user.logo">
-      <span class="desc">{{$store.state.user.desc}}</span>
+      <span class="desc">{{$store.state.user.description}}</span>
       <div class="github">
         <a target="_blank" href="https://github.com/Kaaden"> 
           <img style="width:0.4rem;height:0.4rem" src="http://kaaden.orrzt.com/public/git.png">

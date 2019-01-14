@@ -27,7 +27,7 @@
     <Header></Header>
     <div class="container f">
       <div class="row">
-        <div class="desc rv">{{$store.state.user.desc}}</div>
+        <div class="desc rv">{{$store.state.user.description}}</div>
         <div class="content rv">{{$store.state.user.content}}</div>
       </div>
       <UserInfo></UserInfo>
