@@ -37,6 +37,13 @@
     .github {
       margin-top: 0.3rem;
       cursor: pointer;
+      > a img {
+        width: 0.4rem;
+        height: 0.4rem;
+        margin-right: 0.1rem;
+        border: 1px solid #d9d8d9;
+        border-radius: 50%;
+      }
     }
   }
 }
@@ -60,8 +67,11 @@
       <img class="aboutMe" :src="$store.state.user.logo">
       <span class="desc">{{$store.state.user.description}}</span>
       <div class="github">
-        <a target="_blank" href="https://github.com/Kaaden"> 
-          <img style="width:0.4rem;height:0.4rem" src="http://kaaden.orrzt.com/public/git.png">
+        <a title="github" target="_blank" href="https://github.com/Kaaden">
+          <img src="http://kaaden.orrzt.com/public/git.png">
+        </a>
+        <a title="admin" target="_blank" href="http://kaaden.orrzt.com/admin">
+          <img src="http://kaaden.orrzt.com/public/logo.jpg">
         </a>
       </div>
     </div>
