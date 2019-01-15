@@ -50,7 +50,7 @@
   <div>
     <Header></Header>
     <div class="container" v-loading="$store.state.loading">
-      <ul class="tag-ie f fw">
+      <ul class="tag-ie f fw rv">
         <li :class="$store.state.TagSel===''?'selLi':''" @click="selChange('','')">全部</li>
         <li
           v-for="(item,index) in $store.state.Tags"
@@ -66,7 +66,7 @@
             <span>{{item.category}}</span>
           </div>
           <ul class="list">
-            <li v-for="it in item.list" @click="goDetail(it)">{{it.title}}</li>
+            <li v-for="it in item.list" @click="goDetail(it)" class="rv">{{it.title}}</li>
           </ul>
         </li>
       </ul>
@@ -78,6 +78,7 @@
 <script>
 import Header from "../components/Head";
 import Up from "../components/Up";
+import scrollReveal from "scrollReveal";
 export default {
   name: "Tags",
   components: {
@@ -91,7 +92,8 @@ export default {
         pageSize: 10000,
         status: 1,
         category: ""
-      }
+      },
+      scrollReveal: scrollReveal()
     };
   },
   methods: {
@@ -128,6 +130,7 @@ export default {
       $store.commit("ChangeTagSel", "");
     }
     $store.commit("ChangeLoading", false);
+    this.tools.scrollAnimate(this.scrollReveal);
   }
 };
 </script>

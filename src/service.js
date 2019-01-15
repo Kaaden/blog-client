@@ -10,7 +10,8 @@ async function request(options) {
         return response;
     }
 }
-const host = "http://kaaden.orrzt.com";
+const host="http://127.0.0.1:80"
+// const host = "http://kaaden.orrzt.com";
 const addr = {
     bing: host + "/getBing",
     content: host + "/getContent",

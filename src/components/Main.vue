@@ -56,7 +56,7 @@
 
 <script>
 import UserInfo from "./userInfo";
-
+import scrollReveal from "scrollReveal";
 export default {
   name: "Main",
   components: {
@@ -68,7 +68,8 @@ export default {
         pageindex: 1,
         pageSize: 10,
         status: 1
-      }
+      },
+      scrollReveal: scrollReveal()
     };
   },
   methods: {
@@ -89,6 +90,7 @@ export default {
     $store.commit("ChangeLoading", true);
     await $store.dispatch("getContent", vm);
     $store.commit("ChangeLoading", false);
+    this.tools.scrollAnimate(this.scrollReveal);
   }
 };
 </script>

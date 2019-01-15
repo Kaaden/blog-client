@@ -111,7 +111,6 @@
 </template>
 
 <script>
-import scrollReveal from "scrollReveal";
 export default {
   name: "Head",
   data() {
@@ -120,8 +119,7 @@ export default {
         { id: 1, name: "HOME" },
         { id: 2, name: "ABOUT" },
         { id: 3, name: "TAGS" }
-      ],
-      scrollReveal: scrollReveal()
+      ]
     };
   },
   methods: {
@@ -139,54 +137,7 @@ export default {
           break;
       }
       this.tools.goNewPage(url, this);
-    },
-    scorll(e) {
-      e = e || window.event;
-      let documentScroll = document.documentElement.scrollTop;
-      if (documentScroll === 0) {
-        this.$store.commit("ChangeScroll", false);
-        return;
-      }
-      if (e.wheelDelta) {
-        //第一步：先判断浏览器IE，谷歌滑轮事件
-        e.wheelDelta > 0
-          ? this.$store.commit("ChangeScroll", true)
-          : this.$store.commit("ChangeScroll", false);
-      } else if (e.detail) {
-        e.detail > 0
-          ? this.$store.commit("ChangeScroll", true)
-          : this.$store.commit("ChangeScroll", false);
-      } else {
-       this.$store.commit("ChangeScroll", false);
-      }
     }
-  },
-  mounted() {
-    var scrollFunc = this.scorll;
-    //给页面绑定滑轮滚动事件
-    if (document.addEventListener) {
-      document.addEventListener("DOMMouseScroll", scrollFunc, false);
-    }
-    //滚动滑轮触发scrollFunc方法  //ie 谷歌
-    window.onmousewheel = document.onmousewheel = scrollFunc;
-    this.scrollReveal.reveal(".rv", {
-      //动画的时长
-      duration: 300,
-      //延迟时间
-      delay: 0,
-      //动画开始的位置，'bottom', 'left', 'top', 'right'
-      origin: "top",
-      //回滚的时候是否再次触发动画
-      reset: true,
-      //在移动端是否使用动画
-      mobile: false,
-      //滚动的距离，单位可以用%，rem等
-      distance: "0",
-      //其他可用的动画效果
-      opacity: 0.8,
-      easing: "ease-out",
-      scale: 0.5
-    });
   }
 };
 </script>

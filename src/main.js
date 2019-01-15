@@ -20,5 +20,6 @@ new Vue({
   render: h => h(App),
   mounted() {
     tools.fontSize();
+
   },
 }).$mount('#app')
