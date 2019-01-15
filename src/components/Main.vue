@@ -10,25 +10,41 @@
   li:hover {
     color: #0085a1;
   }
-  li h2 {
+  .title {
     font-size: 0.26rem;
     line-height: 1.3;
     margin-bottom: 0.1rem;
   }
-  li p {
+  .content {
     font-style: italic;
     color: #a3a3a3;
     font-size: 0.12rem;
     margin-bottom: 0.1rem;
+    margin-right: 0.3rem;
   }
-  li p:hover {
+  .content:hover {
     color: #0085a1;
   }
-  li span {
+  .time {
     font-family: Lora, "Times New Roman", serif;
     color: gray;
     font-size: 0.18rem;
     font-style: italic;
+  }
+  .authors {
+    font-family: Lora, "Times New Roman", serif;
+    color: #0085a1;
+    font-size: 0.14rem;
+    margin-left: 0.2rem;
+    font-style: italic;
+  }
+  .fecthImg {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    flex-shrink: 0;
   }
 }
 </style>
@@ -37,10 +53,16 @@
 <template>
   <div class="container f">
     <ul class="row" v-loading="$store.state.loading">
-      <li v-for="item in $store.state.contentLst" @click="goDetail(item)" v-cloak>
-        <h2 class="rv">{{item.title}}</h2>
-        <p class="line line3 rv">{{item.content}}</p>
-        <span class="rv">{{item.time}}</span>
+      <li v-for="item in $store.state.contentLst" @click="goDetail(item)" v-cloak class="f fc fj">
+        <div class="f fv">
+          <h2 class="title rv">{{item.title}}</h2>
+          <p class="content line line3 rv">{{item.content}}</p>
+          <div class="f fc">
+            <span class="time rv">{{item.time}}</span>
+            <span class="authors rv">{{item.authors}}</span>
+          </div>
+        </div>
+        <div class="fecthImg rv" :style="{'background-image':`url(${item.img})`}"></div>
       </li>
       <el-pagination
         layout="prev, pager, next"
@@ -77,20 +99,21 @@ export default {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     },
     async changePage(e) {
-      let { $store, vm } = this;
+      let { $store, vm, tools } = this;
       vm.pageindex = e;
       $store.commit("ChangeLoading", true);
       await $store.dispatch("getContent", vm);
       $store.commit("ChangeLoading", false);
       this.vm.pageindex = e;
+      tools.scrollAnimate(this.scrollReveal);
     }
   },
   async mounted() {
-    const { $store, vm } = this;
+    const { $store, vm, tools } = this;
     $store.commit("ChangeLoading", true);
     await $store.dispatch("getContent", vm);
     $store.commit("ChangeLoading", false);
-    this.tools.scrollAnimate(this.scrollReveal);
+    tools.scrollAnimate(this.scrollReveal);
   }
 };
 </script>
