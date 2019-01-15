@@ -39,7 +39,8 @@
 <script>
 import Header from "../components/Head";
 import UserInfo from "../components/userInfo";
-import Up from "../components/Up"
+import Up from "../components/Up";
+import scrollReveal from "scrollreveal";
 export default {
   name: "Tags",
   components: {
@@ -48,18 +49,23 @@ export default {
     Up
   },
   data() {
-    return {};
+    return {
+      scrollReveal: scrollReveal()
+    };
   },
   methods: {},
   async mounted() {
-    this.$store.dispatch("getBing", {
+    const { $store, tools } = this;
+    $store.dispatch("getBing", {
       name: "About me",
       tip: "show me something",
-      url: "http://kaaden.orrzt.com/public/v2-bf8626365bc43994346ef23a908d2e03_r.jpg"
+      url:
+        "http://kaaden.orrzt.com/public/v2-bf8626365bc43994346ef23a908d2e03_r.jpg"
     });
-    if (this.$store.state.user === "") {
-      this.$store.dispatch("getUser");
+    if ($store.state.user === "") {
+      $store.dispatch("getUser");
     }
+    tools.scrollAnimate(this.scrollReveal);
   }
 };
 </script>

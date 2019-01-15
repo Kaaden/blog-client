@@ -37,8 +37,8 @@ export default new Vuex.Store({
       const { total, list } = payload
       if (list.length) {
         list.map(item => {
-          item.content = item.content.replace(/<[^>]+>/g, "")//去除所有html标签
-          item.content = item.content.replace(/↵/g, "");
+          item.content = item.content && item.content.replace(/<[^>]+>/g, "")//去除所有html标签
+          item.content = item.content && item.content.replace(/↵/g, "");
         })
       }
       state.contentLst = list

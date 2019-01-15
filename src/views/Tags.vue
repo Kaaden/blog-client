@@ -78,7 +78,7 @@
 <script>
 import Header from "../components/Head";
 import Up from "../components/Up";
-import scrollReveal from "scrollReveal";
+import scrollReveal from "scrollreveal";
 export default {
   name: "Tags",
   components: {
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     async selChange(index, category) {
-      const { $store } = this;
+      const { $store, tools } = this;
       let vm = {
         pageindex: 1,
         pageSize: 10000,
@@ -109,13 +109,14 @@ export default {
       await $store.dispatch("getContent", vm);
       await $store.commit("ChangeTagSel", index);
       $store.commit("ChangeLoading", false);
+      tools.scrollAnimate(this.scrollReveal);
     },
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
   },
   async mounted() {
-    const { $store } = this;
+    const { $store, tools } = this;
     $store.commit("ChangeLoading", true);
     $store.dispatch("getBing", {
       name: "TAGS",
@@ -130,7 +131,7 @@ export default {
       $store.commit("ChangeTagSel", "");
     }
     $store.commit("ChangeLoading", false);
-    this.tools.scrollAnimate(this.scrollReveal);
+    tools.scrollAnimate(this.scrollReveal);
   }
 };
 </script>

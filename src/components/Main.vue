@@ -56,7 +56,7 @@
 
 <script>
 import UserInfo from "./userInfo";
-import scrollReveal from "scrollReveal";
+import scrollReveal from "scrollreveal";
 export default {
   name: "Main",
   components: {

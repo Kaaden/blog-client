@@ -9,30 +9,35 @@
   <div>
     <Header></Header>
     <div id="info" class="content" v-loading="$store.state.loading"></div>
-     <Up></Up>
+    <Up></Up>
   </div>
 </template>
 
 <script>
+import scrollReveal from "scrollreveal";
 import Header from "../components/Head";
-import Up from "../components/Up"
+import Up from "../components/Up";
 export default {
   name: "home",
   components: {
     Header,
     Up
   },
+  data() {
+    return {
+      scrollReveal: scrollReveal()
+    };
+  },
   async mounted() {
-    this.$store.commit("ChangeLoading", true);
-    let id = this.$route.query.id;
-    await this.$store.dispatch("getDetail", id);
-    this.$store.state.detail.content = this.$store.state.detail.content.replace(
-      /↵/g,
-      ""
-    );
-    document.getElementById(
-      "info"
-    ).innerHTML = this.$store.state.detail.content;
+    const { $store, tools } = this;
+    const { commit, dispatch, state } = $store;
+    const id = this.$route.query.id;
+    commit("ChangeLoading", true);
+    await dispatch("getDetail", id);
+    state.detail.content =
+      state.detail.content && state.detail.content.replace(/↵/g, "");
+    document.getElementById("info").innerHTML = state.detail.content;
+    tools.scrollAnimate(this.scrollReveal);
   }
 };
 </script>

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import scrollReveal from "scrollReveal";
+import scrollReveal from "scrollreveal";
 export default {
   name: "app",
   data() {
@@ -12,7 +12,7 @@ export default {
       scrollReveal: scrollReveal()
     };
   },
-  updated() {
+  mounted() {
     this.tools.scrollAnimate(this.scrollReveal);
   }
 };
