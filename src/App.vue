@@ -12,6 +12,12 @@ export default {
       scrollReveal: scrollReveal()
     };
   },
+  watch: {
+    $route(to, from) {
+      console.log(this)
+      console.log(to.path);
+    }
+  },
   mounted() {
     this.tools.scrollAnimate(this.scrollReveal);
   }

@@ -103,6 +103,9 @@ export default new Vuex.Store({
     //详情
     async getDetail({ commit }, payload) {
       let { data } = await getDetail({ id: payload })
+      if (!data) {
+        return
+      }
       if (data.isok) {
         commit("SaveDetail", data.data)
       }

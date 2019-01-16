@@ -34,9 +34,11 @@ export default {
     const id = this.$route.query.id;
     commit("ChangeLoading", true);
     await dispatch("getDetail", id);
-    state.detail.content =
-      state.detail.content && state.detail.content.replace(/↵/g, "");
-    document.getElementById("info").innerHTML = state.detail.content;
+    let content = state.detail.content
+      ? state.detail.content.replace(/↵/g, "")
+      : "";
+
+    document.getElementById("info").innerHTML = content;
     tools.scrollAnimate(this.scrollReveal);
   }
 };
