@@ -1,5 +1,5 @@
 module.exports = {
-    baseUrl: '/public',
+    baseUrl: '/public/client',
     outputDir: 'dist',
     lintOnSave: true,
     runtimeCompiler: true, //关键点在这  
