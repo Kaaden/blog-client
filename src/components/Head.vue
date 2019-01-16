@@ -175,6 +175,12 @@ export default {
     }
     //滚动滑轮触发scrollFunc方法  //ie 谷歌
     window.onmousewheel = document.onmousewheel = scrollFunc;
+    if (!this.$store.state.bingImg) {
+      this.$store.dispatch("getBing", {
+        name: "Kaaden",
+        tip: "一个不甘寂寞的码畜"
+      });
+    }
   }
 };
 </script>

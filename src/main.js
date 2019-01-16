@@ -6,6 +6,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { tools } from "./assets/tools";
 import "./assets/base.css";
+import "./assets/dzicon.css";
 Vue.config.productionTip = false;
 //监听页面变化
 window.addEventListener("resize", () => {

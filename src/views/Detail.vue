@@ -2,13 +2,35 @@
 .content {
   width: 60%;
   margin: 20px auto;
+  .empty {
+    height: 3rem;
+    .title {
+      font-size: 0.3rem;
+      font-weight: 600;
+    }
+    .back {
+      font-size: 0.24rem;
+      font-weight: 600;
+      color: #0085a1;
+      text-decoration: none;
+      margin-top: 0.3rem;
+    }
+  }
 }
 </style>
 
 <template>
   <div>
     <Header></Header>
-    <div id="info" class="content" v-loading="$store.state.loading"></div>
+    <div id="info" class="content" v-loading="$store.state.loading">
+      <div v-if="!isContent" class="empty f fc fc-h">
+        <i class="dzicon icon-kongzhuangtai-fuben" style="font-size:3rem"/>
+        <div class="f fv">
+          <span class="title">你所访问页面不存在</span>
+          <a class="back" href="/">点击返回</a>
+        </div>
+      </div>
+    </div>
     <Up></Up>
   </div>
 </template>
@@ -25,7 +47,8 @@ export default {
   },
   data() {
     return {
-      scrollReveal: scrollReveal()
+      scrollReveal: scrollReveal(),
+      isContent: true
     };
   },
   async mounted() {
@@ -34,11 +57,14 @@ export default {
     const id = this.$route.query.id;
     commit("ChangeLoading", true);
     await dispatch("getDetail", id);
-    let content = state.detail.content
-      ? state.detail.content.replace(/↵/g, "")
-      : "";
+    if (state.detail.content) {
+      let content = state.detail.content.replace(/↵/g, "");
+      document.getElementById("info").innerHTML = content;
+      this.isContent = true;
+    } else {
+      this.isContent = false;
+    }
 
-    document.getElementById("info").innerHTML = content;
     tools.scrollAnimate(this.scrollReveal);
   }
 };

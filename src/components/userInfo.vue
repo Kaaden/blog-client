@@ -37,12 +37,11 @@
     .github {
       margin-top: 0.3rem;
       cursor: pointer;
-      > a img {
-        width: 0.4rem;
-        height: 0.4rem;
-        margin-right: 0.1rem;
-        border: 1px solid #d9d8d9;
-        border-radius: 50%;
+      > i {
+        color: #a1a2a3;
+      }
+      > i:hover {
+        color: #0085a1;
       }
     }
   }
@@ -66,13 +65,17 @@
       </h4>
       <img class="aboutMe" :src="$store.state.user.logo">
       <span class="desc">{{$store.state.user.description}}</span>
-      <div class="github">
-        <a title="github" target="_blank" href="https://github.com/Kaaden">
-          <img src="http://kaaden.orrzt.com/public/git.png">
-        </a>
-        <a title="admin" target="_blank" href="http://kaaden.orrzt.com/admin">
-          <img src="http://kaaden.orrzt.com/public/logo.jpg">
-        </a>
+      <div class="github f fc">
+        <el-tooltip class="item" effect="dark" content="github" placement="top-start">
+          <i class="dzicon icon-git" style="font-size:0.4rem" @click="goOpen(0)"></i>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="admin" placement="top-start">
+          <i
+            class="dzicon icon-houtai1"
+            style="font-size:0.43rem;margin-left:0.15rem"
+            @click="goOpen(1)"
+          />
+        </el-tooltip>
       </div>
     </div>
   </div>
@@ -98,6 +101,11 @@ export default {
     },
     goAbout() {
       this.tools.goNewPage(`/About`, this);
+    },
+    goOpen(type) {
+      type === 1
+        ? window.open("http://kaaden.orrzt.com/admin#/")
+        : window.open("https://github.com/Kaaden");
     }
   },
   mounted() {
