@@ -75,7 +75,6 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.3);
   }
 }
 </style>
@@ -87,6 +86,7 @@
     <div
       class="header-top f fj fc"
       :class="$store.state.scrollTop===false?'header-posi':'header-fix'"
+      :style="{background:showBg?'rgba(0, 0, 0, 0.3)':''}"
       v-cloak
     >
       <a class="header-title" href="/">Kaaden Blog</a>
@@ -119,7 +119,8 @@ export default {
         { id: 1, name: "HOME" },
         { id: 2, name: "ABOUT" },
         { id: 3, name: "TAGS" }
-      ]
+      ],
+      showBg: false
     };
   },
   methods: {
@@ -146,6 +147,12 @@ export default {
         $store.commit("ChangeScroll", false);
         return;
       }
+      if (document.documentElement.scrollTop >= 470) {
+        this.showBg = true;
+      } else {
+        this.showBg = false;
+      }
+      // console.log(document.documentElement.scrollTop)
       if (e.wheelDelta) {
         //第一步：先判断浏览器IE，谷歌滑轮事件
         e.wheelDelta > 0
