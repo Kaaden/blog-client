@@ -20,7 +20,6 @@
     color: #a3a3a3;
     font-size: 0.12rem;
     margin-bottom: 0.1rem;
-    margin-right: 0.3rem;
   }
   .content:hover {
     color: #0085a1;
@@ -39,11 +38,11 @@
     font-style: italic;
   }
   .fecthImg {
-    width: 1rem;
+    width: 18%;
     height: 1rem;
     border-radius: 5px;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
     flex-shrink: 0;
   }
 }
@@ -52,9 +51,9 @@
 
 <template>
   <div class="container f">
-    <ul class="row" v-loading="$store.state.loading">
-      <li v-for="item in $store.state.contentLst" @click="goDetail(item)" v-cloak class="f fc fj">
-        <div class="f fv">
+    <ul class="row" v-loading="$store.state.loading" >
+      <li v-for="item in $store.state.contentLst" @click="goDetail(item)" v-cloak class="f fc fj" style="width:100%">
+        <div class="f fv" style="width:75%;margin-right:0.3rem">
           <h2 class="title rv">{{item.title}}</h2>
           <p class="content line line3 rv">{{item.content}}</p>
           <div class="f fc">
