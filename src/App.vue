@@ -13,13 +13,14 @@ export default {
     };
   },
   watch: {
+    //监听路由事件
     $route(to, from) {
-      console.log(this)
-      console.log(to.path);
+      this.$store.dispatch("getConfig", to.path);
     }
   },
   mounted() {
     this.tools.scrollAnimate(this.scrollReveal);
+    this.$store.dispatch("getConfig", this.$route.path);
   }
 };
 </script>

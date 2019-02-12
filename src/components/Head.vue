@@ -152,7 +152,6 @@ export default {
       } else {
         this.showBg = false;
       }
-      // console.log(document.documentElement.scrollTop)
       if (e.wheelDelta) {
         //第一步：先判断浏览器IE，谷歌滑轮事件
         e.wheelDelta > 0
@@ -175,12 +174,6 @@ export default {
     }
     //滚动滑轮触发scrollFunc方法  //ie 谷歌
     window.onmousewheel = document.onmousewheel = scrollFunc;
-    if (!this.$store.state.bingImg) {
-      this.$store.dispatch("getBing", {
-        name: "Kaaden",
-        tip: "一个不甘寂寞的码畜"
-      });
-    }
   }
 };
 </script>

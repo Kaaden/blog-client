@@ -10,14 +10,16 @@ async function request(options) {
         return response;
     }
 }
-// const host="http://127.0.0.1:80"
+// const host = "http://127.0.0.1:80"
 const host = "http://kaaden.orrzt.com";
 const addr = {
     bing: host + "/getBing",
     content: host + "/getContent",
     detail: host + "/getDetail",
     getTags: host + "/getTags",
-    getUser: host + "/getUser"
+    getUser: host + "/getUser",
+    getConfig: host + "/getConfig",
+    checkConfig: host + "/checkConfig"
 };
 export const getBing = (body) => {
     return request({
@@ -51,6 +53,20 @@ export const getUser = (body) => {
     return request({
         method: "post",
         url: addr.getUser,
+        data: qs.stringify(body)
+    });
+}
+export const getConfig = (body) => {
+    return request({
+        method: "post",
+        url: addr.getConfig,
+        data: qs.stringify(body)
+    });
+}
+export const checkConfig = (body) => {
+    return request({
+        method: "post",
+        url: addr.checkConfig,
         data: qs.stringify(body)
     });
 }

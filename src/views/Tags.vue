@@ -115,19 +115,14 @@ export default {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
   },
-  async mounted() {
+  mounted() {
     const { $store, tools } = this;
     $store.commit("ChangeLoading", true);
-    $store.dispatch("getBing", {
-      name: "TAGS",
-      tip: "Find the right one for you",
-      url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548160931514&di=41eed28a8234b90ac2fe10e235fdc7c3&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201510%2F16%2F203338nqw93m1e7b19orgr.jpg"
-    });
     if ($store.state.Tags.length === 0) {
       $store.dispatch("getTags");
     }
     if ($store.state.TagSel === "") {
-      await $store.dispatch("getContent", this.vm);
+      $store.dispatch("getContent", this.vm);
       $store.commit("ChangeTagSel", "");
     }
     $store.commit("ChangeLoading", false);

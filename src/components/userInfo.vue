@@ -112,9 +112,6 @@ export default {
     if (this.$store.state.Tags.length === 0) {
       this.$store.dispatch("getTags");
     }
-    if (this.$store.state.user === "") {
-      this.$store.dispatch("getUser");
-    }
   }
 };
 </script>

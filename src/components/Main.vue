@@ -51,8 +51,14 @@
 
 <template>
   <div class="container f">
-    <ul class="row" v-loading="$store.state.loading" >
-      <li v-for="item in $store.state.contentLst" @click="goDetail(item)" v-cloak class="f fc fj" style="width:100%">
+    <ul class="row" v-loading="$store.state.loading">
+      <li
+        v-for="item in $store.state.contentLst"
+        @click="goDetail(item)"
+        v-cloak
+        class="f fc fj"
+        style="width:100%"
+      >
         <div class="f fv" style="width:75%;margin-right:0.3rem">
           <h2 class="title rv">{{item.title}}</h2>
           <p class="content line line3 rv">{{item.content}}</p>
@@ -107,10 +113,10 @@ export default {
       tools.scrollAnimate(this.scrollReveal);
     }
   },
-  async mounted() {
+  mounted() {
     const { $store, vm, tools } = this;
     $store.commit("ChangeLoading", true);
-    await $store.dispatch("getContent", vm);
+    $store.dispatch("getContent", vm);
     $store.commit("ChangeLoading", false);
     tools.scrollAnimate(this.scrollReveal);
   }

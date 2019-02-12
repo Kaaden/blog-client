@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import { getBing, getContent, getDetail, getTags, getUser } from "./service";
+import { getBing, getContent, getDetail, getTags, getUser, getConfig, checkConfig } from "./service";
 export default new Vuex.Store({
   state: {
     topLing: {
@@ -83,15 +83,11 @@ export default new Vuex.Store({
   actions: {
     //获取每日一图
     async getBing({ commit }, payload) {
-      let url
       if (!payload.url) {
         let { data } = await getBing()
-        url = data.url
-      } else {
-        url = payload.url
+        payload.url = data.url
       }
-
-      commit("SaveBing", { url, ...payload })
+      commit("SaveBing", { ...payload })
     },
     // 获取列表
     async getContent({ commit }, payload) {
@@ -122,7 +118,59 @@ export default new Vuex.Store({
       if (data.isok) {
         commit("SaveUser", data.data)
       }
+    },
+    async getConfig({ dispatch }, para) {
+      let changeData
+      let config = window.sessionStorage.getItem("config")
+      if (!config) {
+        let { data } = await getConfig({ status: true })
+        changeData = data.data
+        window.sessionStorage.setItem("config", JSON.stringify(data.data))
+      } else {
+        config = JSON.parse(config)
+        let hasUpdate = await checkConfig({ id: config.id, time: config.time })
+        if (hasUpdate.data.isUpdate) {
+          changeData = hasUpdate.data.data
+          window.sessionStorage.setItem("config", JSON.stringify(hasUpdate.data.data))
+        } else {
+          changeData = config
+        }
+      }
+      exChangeConfig(para, dispatch, changeData)
     }
 
   }
 })
+// 配置切换
+const exChangeConfig = (route, dispatch, data) => {
+  let hasData
+  switch (route) {
+    case "/":
+      hasData = {
+        name: data.hometitle,
+        tip: data.homelevel,
+        url: ""
+      }
+      break;
+    case "/About":
+      hasData = {
+        name: data.aboutitle,
+        tip: data.aboutlevel,
+        url: data.aboutImg
+      }
+      break;
+    case "/Tags":
+      hasData = {
+        name: data.tagstitle,
+        tip: data.tagslevel,
+        url: data.tagsImg
+      }
+
+      break;
+  }
+  dispatch("getBing", {
+    name: hasData.name,
+    tip: hasData.tip,
+    url: hasData.url
+  });
+}

@@ -56,15 +56,7 @@ export default {
   methods: {},
   async mounted() {
     const { $store, tools } = this;
-    $store.dispatch("getBing", {
-      name: "About me",
-      tip: "show me something",
-      url:
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548755589&di=56111dff399b429ad4bd87bcd6c6fdd1&imgtype=jpg&er=1&src=http%3A%2F%2Fpicture.ik123.com%2Fuploads%2Fallimg%2F180818%2F12-1PQQ34Z6.jpg"
-    });
-    if ($store.state.user === "") {
-      $store.dispatch("getUser");
-    }
+    $store.dispatch("getUser");
     tools.scrollAnimate(this.scrollReveal);
   }
 };
