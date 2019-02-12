@@ -55,7 +55,6 @@ export default {
     const { $store, tools } = this;
     const { commit, dispatch, state } = $store;
     const id = this.$route.query.id;
-    commit("ChangeLoading", true);
     await dispatch("getDetail", id);
     if (state.detail.content) {
       let content = state.detail.content.replace(/↵/g, "");

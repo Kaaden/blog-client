@@ -36,10 +36,11 @@ export default new Vuex.Store({
     SaveContent(state, payload) {
       const { total, list } = payload
       if (list.length) {
-        list.map(item => {
-          item.content = item.content && item.content.replace(/<[^>]+>/g, "")//去除所有html标签
-          item.content = item.content && item.content.replace(/↵/g, "");
-        })
+        // for (let i = 0, len = list.length; i < len; i++) {
+        //   let item = list[i]
+        //   item.content = item.content && item.content.replace(/<[^>]+>/g, "")//去除所有html标签
+        //   item.content = item.content && item.content.replace(/↵/g, "");
+        // }
       }
       state.contentLst = list
       state.contentTotal = total
@@ -91,15 +92,19 @@ export default new Vuex.Store({
     },
     // 获取列表
     async getContent({ commit }, payload) {
+      commit("ChangeLoading", true)
       let { data } = await getContent(payload)
+      commit("ChangeLoading", false)
       if (data.isok) {
         commit("SaveContent", { list: data.list, total: data.total })
       }
     },
     //详情
     async getDetail({ commit }, payload) {
+      commit("ChangeLoading", true);
       let { data } = await getDetail({ id: payload })
       if (!data) {
+        commit("ChangeLoading", false);
         return
       }
       if (data.isok) {

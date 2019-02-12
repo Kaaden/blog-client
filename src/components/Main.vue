@@ -103,21 +103,17 @@ export default {
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     },
-    async changePage(e) {
+    changePage(e) {
       let { $store, vm, tools } = this;
       vm.pageindex = e;
-      $store.commit("ChangeLoading", true);
-      await $store.dispatch("getContent", vm);
-      $store.commit("ChangeLoading", false);
+      $store.dispatch("getContent", vm);
       this.vm.pageindex = e;
       tools.scrollAnimate(this.scrollReveal);
     }
   },
   mounted() {
     const { $store, vm, tools } = this;
-    $store.commit("ChangeLoading", true);
     $store.dispatch("getContent", vm);
-    $store.commit("ChangeLoading", false);
     tools.scrollAnimate(this.scrollReveal);
   }
 };
