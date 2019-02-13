@@ -97,7 +97,7 @@ export default {
     };
   },
   methods: {
-    selChange(index, category) {
+    async selChange(index, category) {
       const { $store, tools } = this;
       let vm = {
         pageindex: 1,
@@ -105,7 +105,8 @@ export default {
         status: 1,
         category
       };
-      $store.dispatch("getContent", vm);
+      await $store.commit("ChangeFetch", false);
+      await $store.dispatch("getContent", vm);
       $store.commit("ChangeTagSel", index);
       tools.scrollAnimate(this.scrollReveal);
     },
@@ -113,13 +114,14 @@ export default {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
   },
-  mounted() {
+  async mounted() {
     const { $store, tools } = this;
     if ($store.state.Tags.length === 0) {
       $store.dispatch("getTags");
     }
     if ($store.state.TagSel === "") {
-      $store.dispatch("getContent", this.vm);
+      await $store.commit("ChangeFetch", false);
+      await $store.dispatch("getContent", this.vm);
       $store.commit("ChangeTagSel", "");
     }
     tools.scrollAnimate(this.scrollReveal);

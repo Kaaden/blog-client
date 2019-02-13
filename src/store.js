@@ -10,7 +10,7 @@ export default new Vuex.Store({
     },
     bingImg: "",
     contentLst: [],
-    contentTotal: 0,
+    // contentTotal: 0,
     detail: "",
     Tags: [],
     TagSel: "",
@@ -18,13 +18,24 @@ export default new Vuex.Store({
     user: "",
     loading: false,
     scrollTop: false,
+    stopFetch: false,
+    showBg: false,
   },
   mutations: {
     ChangeScroll(state, payload) {
       state.scrollTop = payload
     },
+    ChangeBg(state, payload) {
+      state.showBg = payload
+    },
     ChangeLoading(state, payload) {
       state.loading = payload
+    },
+    ChangeFetch(state, payload) {
+      if(!payload){
+        state.contentLst=[]
+      }
+      state.stopFetch = payload
     },
     SaveBing(state, payload) {
       const { url, name, tip } = payload
@@ -34,16 +45,16 @@ export default new Vuex.Store({
       state.topLing.time = ""
     },
     SaveContent(state, payload) {
-      const { total, list } = payload
+      const { list } = payload
       if (list.length) {
-        // for (let i = 0, len = list.length; i < len; i++) {
-        //   let item = list[i]
-        //   item.content = item.content && item.content.replace(/<[^>]+>/g, "")//去除所有html标签
-        //   item.content = item.content && item.content.replace(/↵/g, "");
-        // }
+        for (let i = 0, len = list.length; i < len; i++) {
+          list[i].content = list[i].content && list[i].content.replace(/<[^>]+>/g, "").replace(/↵/g, "");//去除所有html标签
+        }
+        state.stopFetch = false
+      } else {
+        state.stopFetch = true
       }
-      state.contentLst = list
-      state.contentTotal = total
+      state.contentLst = [...state.contentLst, ...list]
     },
     SaveDetail(state, payload) {
       state.bingImg = payload.img ? payload.img : state.bingImg
@@ -91,13 +102,14 @@ export default new Vuex.Store({
       commit("SaveBing", { ...payload })
     },
     // 获取列表
-    async getContent({ commit }, payload) {
+    async getContent({ commit, state }, payload) {
+      if (state.stopFetch) {
+        return
+      }
       commit("ChangeLoading", true)
       let { data } = await getContent(payload)
       commit("ChangeLoading", false)
-      if (data.isok) {
-        commit("SaveContent", { list: data.list, total: data.total })
-      }
+      commit("SaveContent", { list: data.list })
     },
     //详情
     async getDetail({ commit }, payload) {

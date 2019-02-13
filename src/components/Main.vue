@@ -69,13 +69,13 @@
         </div>
         <div class="fecthImg rv" :style="{'background-image':`url(${item.img})`}"></div>
       </li>
-      <el-pagination
+      <!-- <el-pagination
         layout="prev, pager, next"
         :page-size="10"
         :current-page="vm.pageindex"
         @current-change="changePage"
         :total="$store.state.contentTotal"
-      />
+      />-->
     </ul>
     <UserInfo></UserInfo>
   </div>
@@ -91,29 +91,25 @@ export default {
   },
   data() {
     return {
-      vm: {
-        pageindex: 1,
-        pageSize: 10,
-        status: 1
-      },
       scrollReveal: scrollReveal()
     };
   },
   methods: {
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
-    },
-    changePage(e) {
-      let { $store, vm, tools } = this;
-      vm.pageindex = e;
-      $store.dispatch("getContent", vm);
-      this.vm.pageindex = e;
-      tools.scrollAnimate(this.scrollReveal);
     }
+    // changePage(e) {
+    //   let { $store, vm, tools } = this;
+    //   vm.pageindex = e;
+    //   $store.dispatch("getContent", vm);
+    //   this.vm.pageindex = e;
+    //   tools.scrollAnimate(this.scrollReveal);
+    // }
   },
-  mounted() {
-    const { $store, vm, tools } = this;
-    $store.dispatch("getContent", vm);
+  async mounted() {
+    const { $store, tools } = this;
+    await $store.commit("ChangeFetch", false);
+    $store.dispatch("getContent", { pageindex: 1, pageSize: 10, status: 1 });
     tools.scrollAnimate(this.scrollReveal);
   }
 };

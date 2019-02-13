@@ -86,7 +86,7 @@
     <div
       class="header-top f fj fc"
       :class="$store.state.scrollTop===false?'header-posi':'header-fix'"
-      :style="{background:showBg?'rgba(0, 0, 0, 0.3)':''}"
+      :style="{background:$store.state.showBg?'rgba(0, 0, 0, 0.3)':''}"
       v-cloak
     >
       <a class="header-title" href="/">Kaaden Blog</a>
@@ -120,7 +120,6 @@ export default {
         { id: 2, name: "ABOUT" },
         { id: 3, name: "TAGS" }
       ],
-      showBg: false
     };
   },
   methods: {
@@ -138,42 +137,7 @@ export default {
           break;
       }
       this.tools.goNewPage(url, this);
-    },
-    scorll(e) {
-      const { $store } = this;
-      e = e || window.event;
-      let documentScroll = document.documentElement.scrollTop;
-      if (documentScroll === 0) {
-        $store.commit("ChangeScroll", false);
-        return;
-      }
-      if (document.documentElement.scrollTop >= 470) {
-        this.showBg = true;
-      } else {
-        this.showBg = false;
-      }
-      if (e.wheelDelta) {
-        //第一步：先判断浏览器IE，谷歌滑轮事件
-        e.wheelDelta > 0
-          ? $store.commit("ChangeScroll", true)
-          : $store.commit("ChangeScroll", false);
-      } else if (e.detail) {
-        e.detail > 0
-          ? $store.commit("ChangeScroll", true)
-          : $store.commit("ChangeScroll", false);
-      } else {
-        $store.commit("ChangeScroll", false);
-      }
     }
-  },
-  mounted() {
-    var scrollFunc = this.scorll;
-    //给页面绑定滑轮滚动事件
-    if (document.addEventListener) {
-      document.addEventListener("DOMMouseScroll", scrollFunc, false);
-    }
-    //滚动滑轮触发scrollFunc方法  //ie 谷歌
-    window.onmousewheel = document.onmousewheel = scrollFunc;
   }
 };
 </script>
