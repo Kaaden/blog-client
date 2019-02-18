@@ -61,7 +61,7 @@
       >
         <div class="f fv" style="width:75%;margin-right:0.3rem">
           <h2 class="title rv">{{item.title}}</h2>
-          <p class="content line line3 rv">{{item.content}}</p>
+          <p class="content line line3 rv">{{item.description}}</p>
           <div class="f fc">
             <span class="time rv">{{item.time}}</span>
             <span class="authors rv">{{item.authors}}</span>
@@ -69,13 +69,6 @@
         </div>
         <div class="fecthImg rv" :style="{'background-image':`url(${item.img})`}"></div>
       </li>
-      <!-- <el-pagination
-        layout="prev, pager, next"
-        :page-size="10"
-        :current-page="vm.pageindex"
-        @current-change="changePage"
-        :total="$store.state.contentTotal"
-      />-->
     </ul>
     <UserInfo></UserInfo>
   </div>
@@ -98,13 +91,6 @@ export default {
     goDetail(item) {
       this.tools.goNewPage(`/Detail?id=${item.id}`, this);
     }
-    // changePage(e) {
-    //   let { $store, vm, tools } = this;
-    //   vm.pageindex = e;
-    //   $store.dispatch("getContent", vm);
-    //   this.vm.pageindex = e;
-    //   tools.scrollAnimate(this.scrollReveal);
-    // }
   },
   async mounted() {
     const { $store, tools } = this;

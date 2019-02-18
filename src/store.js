@@ -32,8 +32,8 @@ export default new Vuex.Store({
       state.loading = payload
     },
     ChangeFetch(state, payload) {
-      if(!payload){
-        state.contentLst=[]
+      if (!payload) {
+        state.contentLst = []
       }
       state.stopFetch = payload
     },
@@ -46,14 +46,7 @@ export default new Vuex.Store({
     },
     SaveContent(state, payload) {
       const { list } = payload
-      if (list.length) {
-        for (let i = 0, len = list.length; i < len; i++) {
-          list[i].content = list[i].content && list[i].content.replace(/<[^>]+>/g, "").replace(/↵/g, "");//去除所有html标签
-        }
-        state.stopFetch = false
-      } else {
-        state.stopFetch = true
-      }
+      state.stopFetch = list.length ? false : true
       state.contentLst = [...state.contentLst, ...list]
     },
     SaveDetail(state, payload) {
