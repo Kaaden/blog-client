@@ -1,8 +1,8 @@
 import qs from "qs";
 import axios from "axios";
-async function request(options) {
+export const request = async (options) => {
     let response;
-    options.headers = { "Content-Type": "application/x-www-form-urlencoded" };
+    options.data = qs.stringify(options.data)
     try {
         response = await axios(options);
         return response;

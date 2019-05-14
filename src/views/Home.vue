@@ -1,25 +1,44 @@
 <template>
-  <div>
-    <Header></Header>
-    <Main></Main>
-    <Up></Up>
+  <div style="padding:30px">
+    <input v-model="url">
+    <button @click="submit">获取</button>
+    <div>{{vm.title}}</div>
+    <div>${{vm.price}}</div>
+    <div>
+      <div>swiper</div>
+      <img style="width:100px;height:100px" v-for="(item,index)  in vm.swiperImgs" :key="index" :src="item">
+    </div>
+
+     <div>
+       <div>content</div>
+      <img style="width:100px;height:100px" v-for="(item,index)  in vm.content" :key="index" :src="item">
+    </div>
   </div>
 </template>
 
 <script>
-import Header from "../components/Head";
-import Main from "../components/Main";
-import Up from "../components/Up";
+import { request } from "../service.js";
 export default {
   name: "home",
-  components: {
-    Header,
-    Main,
-    Up
+  data() {
+    return {
+      url: "",
+      vm: ""
+    };
   },
-  mounted() {
-    if (this.$store.state.user === "") {
-      this.$store.dispatch("getUser");
+  methods: {
+    async submit() {
+      const url = this.url;
+      let { data } = await request({
+        method: "post",
+        url: "http://fetchtb.jishutuan.com/fetchtb",
+        contentType: "application/x-www-form-urlencoded",
+        data: { url }
+      });
+      if (!data.error) {
+        this.vm = data.data;
+      }
+      console.log(data);
     }
   }
 };
