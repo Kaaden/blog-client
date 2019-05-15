@@ -6,7 +6,7 @@
     <div>${{vm.price}}</div>
     <div>
       <div>swiper</div>
-      <img style="width:100px;height:100px" v-for="(item,index)  in vm.swiperImgs" :key="index" :src="item">
+      <img style="width:100px;height:100px" v-for="(item,index)  in vm.imgs" :key="index" :src="item">
     </div>
 
      <div>
@@ -31,6 +31,7 @@ export default {
       const url = this.url;
       let { data } = await request({
         method: "post",
+        // url:"http://localhost:8009/fetchtb",
         url: "http://fetchtb.jishutuan.com/fetchtb",
         contentType: "application/x-www-form-urlencoded",
         data: { url }
